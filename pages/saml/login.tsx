@@ -161,8 +161,8 @@ export default function Login() {
                       onChange={handleChange}
                       value={state.groups}>
                       <option value='Admin'>Admin</option>
-                      <option value='Editais'>Admin</option>
-                      <option value='Contratos'>Admin</option>
+                      <option value='Editais'>Editais</option>
+                      <option value='Contratos'>Contratos</option>
                       <option value='Visitante'>Visitante (Não autorizado)</option>
                     </select>
                   </div>
