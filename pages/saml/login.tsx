@@ -13,6 +13,7 @@ export default function Login() {
     domain: 'example.com',
     acsUrl: 'https://sso.eu.boxyhq.com/api/oauth/saml',
     audience: 'https://saml.boxyhq.com',
+    groups: 'Admin',
   });
 
   const acsUrlInp = useRef<HTMLInputElement>(null);
@@ -53,6 +54,7 @@ export default function Login() {
         audience: audience || state.audience,
         acsUrl: acsUrl || state.acsUrl,
         providerName,
+        groups: state.groups,
         relayState,
       }),
     });
@@ -63,14 +65,14 @@ export default function Login() {
       newDoc.write(await response.text());
       newDoc.close();
     } else {
-      document.write('Error in getting SAML response');
+      document.write('Error in getting SAML response ' + response.status + ' ' + response.statusText);
     }
   };
 
   return (
     <>
       <Head>
-        <title>Mock SAML Identity Provider - Login</title>
+        <title>Lici SAML Identity Provider - Login</title>
       </Head>
       <div className='flex min-h-full items-center justify-center'>
         <div className='flex w-full max-w-xl flex-col px-3'>
@@ -145,7 +147,23 @@ export default function Login() {
                       onChange={handleChange}
                       value={state.domain}>
                       <option value='example.com'>@example.com</option>
-                      <option value='example.org'>@example.org</option>
+                      <option value='example.org'>@example.org (Não autorizado)</option>
+                    </select>
+                  </div>
+                  <div className='form-control col-span-2'>
+                    <label className='label'>
+                      <span className='label-text font-bold'>Groups</span>
+                    </label>
+                    <select
+                      name='groups'
+                      id='groups'
+                      className='select select-bordered'
+                      onChange={handleChange}
+                      value={state.groups}>
+                      <option value='Admin'>Admin</option>
+                      <option value='Editais'>Admin</option>
+                      <option value='Contratos'>Admin</option>
+                      <option value='Visitante'>Visitante (Não autorizado)</option>
                     </select>
                   </div>
                   <div className='form-control col-span-2'>

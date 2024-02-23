@@ -7,26 +7,26 @@ import type { User } from 'types';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { email, audience, acsUrl, id, relayState } = req.body;
+    const { email, audience, acsUrl, id, relayState, groups } = req.body;
 
     if (!email.endsWith('@example.com')) {
-      console.log('Denied:', email);
+      console.log(`Denied access to ${email}`);
       res.status(403).send(`${email} denied access`);
     }
 
     const userId = createHash('sha256').update(email).digest('hex');
     const userName = email.split('@')[0];
 
+    let userGroups: string[] = ['POSITIVO_DEFAULT', 'POSITIVO_ADMIN'];
+    userGroups.push(groups)
 
     const user: User = {
       id: userId,
       email,
       firstName: userName,
       lastName: userName,
-      groups: ['Admin'],
+      groups: userGroups,
     };
-
-    console.log('User:', user);
 
     const xmlSigned = await saml.createSAMLResponse({
       issuer: getEntityId(config.entityId, req.query.namespace as any),
