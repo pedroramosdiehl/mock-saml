@@ -160,9 +160,8 @@ export default function Login() {
                       className='select select-bordered'
                       onChange={handleChange}
                       value={state.groups}>
-                      <option value='Admin'>Admin</option>
-                      <option value='Editais'>Editais</option>
-                      <option value='Contratos'>Contratos</option>
+                      <option value='admin'>Admin</option>
+                      <option value='default'>Default</option>
                       <option value='Visitante'>Visitante (Não autorizado)</option>
                     </select>
                   </div>
