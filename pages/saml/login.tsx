@@ -13,7 +13,7 @@ export default function Login() {
     domain: 'example.com',
     acsUrl: 'https://sso.eu.boxyhq.com/api/oauth/saml',
     audience: 'https://saml.boxyhq.com',
-    groups: 'Admin',
+    groups: 'admin',
   });
 
   const acsUrlInp = useRef<HTMLInputElement>(null);
